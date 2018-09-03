@@ -1,0 +1,34 @@
+{
+  "name": "carno-php/hrpc",
+  "license": "MIT",
+  "description": "HTTP based RPC server",
+  "require": {
+    "carno-php/container": "^1.0",
+    "carno-php/coroutine": "^1.0",
+    "carno-php/promise": "^1.0",
+    "carno-php/serving": "^1.0",
+    "carno-php/cluster": "^1.0",
+    "carno-php/chain": "^1.0",
+    "carno-php/hrpcc": "^1.0",
+    "carno-php/http": "^1.0",
+    "carno-php/rpc": "^1.0",
+    "carno-php/net": "^1.0"
+  },
+  "suggest": {
+    "carno-php/hrpc-accel": "Accelerate by TCP"
+  },
+  "autoload": {
+    "psr-4": {
+      "Carno\\HRPC\\": "src"
+    }
+  },
+  "bin": [
+    "bin/rpcd"
+  ],
+  "minimum-stability": "dev",
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.0-dev"
+    }
+  }
+}
