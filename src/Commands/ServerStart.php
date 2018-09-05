@@ -14,6 +14,7 @@ use Carno\Console\Contracts\Application;
 use Carno\HRPC\Components\Cluster;
 use Carno\HRPC\Components\Dispatcher;
 use Carno\HRPC\Components\Serving;
+use Carno\HRPC\Components\Tracing;
 use Carno\HRPC\Plugins\Registry;
 use Carno\HRPC\Server;
 use Carno\Net\Address;
@@ -50,6 +51,7 @@ class ServerStart extends Based
         Dispatcher::class,
         Serving::class,
         Cluster::class,
+        Tracing::class,
     ];
 
     /**
