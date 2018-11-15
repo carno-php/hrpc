@@ -86,6 +86,9 @@ class Registry extends Program implements Plugins
         ->attach(Events\Server::STARTUP, static function (Conn $serv) use ($forked) {
             $forked->porting($serv->local()->port());
         })
+        ->attach(Events\Server::SHUTDOWN, static function () use ($forked) {
+            $forked->shutdown();
+        })
         ->attach(Events\Worker::STARTED, static function (Conn $serv) use ($forked) {
             $startup = $serv->ctx()->get('WG:STARTING');
             if ($startup instanceof Waited) {
@@ -95,9 +98,6 @@ class Registry extends Program implements Plugins
             } else {
                 trigger_error('No WG:STARTING in serv context', E_USER_WARNING);
             }
-        })
-        ->attach(Events\Worker::STOPPED, static function () use ($forked) {
-            $forked->shutdown();
         });
     }
 
