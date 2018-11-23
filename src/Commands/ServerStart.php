@@ -11,8 +11,8 @@ namespace Carno\HRPC\Commands;
 use Carno\Console\Based;
 use Carno\Console\Configure;
 use Carno\Console\Contracts\Application;
-use Carno\HRPC\Components\Cluster;
 use Carno\HRPC\Components\Dispatcher;
+use Carno\HRPC\Components\Register;
 use Carno\HRPC\Components\Serving;
 use Carno\HRPC\Components\Tracing;
 use Carno\HRPC\Plugins\Registry;
@@ -50,7 +50,7 @@ class ServerStart extends Based
     protected $components = [
         Dispatcher::class,
         Serving::class,
-        Cluster::class,
+        Register::class,
         Tracing::class,
     ];
 

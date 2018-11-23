@@ -1,6 +1,6 @@
 <?php
 /**
- * RPC server init
+ * RPC serving init
  * User: moyo
  * Date: 18/03/2018
  * Time: 3:20 PM

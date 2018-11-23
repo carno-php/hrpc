@@ -1,6 +1,6 @@
 <?php
 /**
- * Service register/deregister
+ * Service registry via "consul"
  * User: moyo
  * Date: 13/12/2017
  * Time: 11:21 AM
@@ -8,7 +8,7 @@
 
 namespace Carno\HRPC\Serviced;
 
-use Carno\Consul\Registry;
+use Carno\Consul\Registry as CRegistry;
 use Carno\Consul\Types\Agent;
 use Carno\Consul\Types\Result;
 use Carno\Consul\Types\Service;
@@ -18,7 +18,7 @@ use Carno\Promise\Promise;
 use Carno\Promise\Promised;
 use Carno\RPC\Service\Router;
 
-class Register
+class ConsulRG implements Registry
 {
     /**
      * @var Agent
@@ -57,12 +57,12 @@ class Register
      * @param Address $advertise
      * @return Promised
      */
-    public function serviceRegister(Address $advertise) : Promised
+    public function register(Address $advertise) : Promised
     {
         $waits = [];
 
         foreach ($this->dRouter->servers() as $server) {
-            $this->sRegistered[] = $service = (new Registry($this->cAgent))
+            $this->sRegistered[] = $service = (new CRegistry($this->cAgent))
                 ->servicing($advertise, $server, $this->dTagging->getTags())
             ;
 
@@ -79,7 +79,7 @@ class Register
     /**
      * @return Promised
      */
-    public function serviceDeregister() : Promised
+    public function deregister() : Promised
     {
         $waits = [];
 

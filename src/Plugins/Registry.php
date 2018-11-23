@@ -10,7 +10,7 @@ namespace Carno\HRPC\Plugins;
 
 use Carno\Console\Boot\Waited;
 use Carno\Container\DI;
-use Carno\HRPC\Serviced\Register;
+use Carno\HRPC\Serviced\Registry as ServiceRG;
 use Carno\Net\Address;
 use Carno\Net\Contracts\Conn;
 use Carno\Net\Events;
@@ -27,9 +27,9 @@ class Registry extends Program implements Plugins
     protected $name = 'service.registry';
 
     /**
-     * @var Register
+     * @var ServiceRG
      */
-    private $register = null;
+    private $registry = null;
 
     /**
      * @var Address
@@ -67,7 +67,7 @@ class Registry extends Program implements Plugins
      */
     public function enabled() : bool
     {
-        return DI::has(Register::class) ? !! $this->register = DI::get(Register::class) : false;
+        return DI::has(ServiceRG::class) ? !! $this->registry = DI::get(ServiceRG::class) : false;
     }
 
     /**
@@ -142,7 +142,7 @@ class Registry extends Program implements Plugins
     protected function starting() : void
     {
         if ($this->ready === $this->waiting) {
-            $this->register->serviceRegister($this->advertise);
+            $this->registry->register($this->advertise);
         }
     }
 
@@ -152,6 +152,6 @@ class Registry extends Program implements Plugins
      */
     protected function stopping(Promised $wait) : void
     {
-        $this->register->serviceDeregister()->sync($wait);
+        $this->registry->deregister()->sync($wait);
     }
 }
