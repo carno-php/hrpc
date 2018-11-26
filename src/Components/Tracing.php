@@ -36,16 +36,16 @@ class Tracing extends Component implements Bootable
     public function starting(Application $app) : void
     {
         /**
-         * @var Observer $observer
+         * @var Observer $platform
          */
 
-        $observer = DI::get(Observer::class);
+        $platform = DI::get(Observer::class);
 
-        $observer->transportable(static function () {
+        $platform->transportable(static function () {
             Server::layers()->has(TracedOutgoing::class)
-                || Server::layers()->prepend(ServerWrapper::class, DI::object(TracedOutgoing::class));
+            || Server::layers()->prepend(ServerWrapper::class, DI::object(TracedOutgoing::class));
             Server::layers()->has(TracedIncoming::class)
-                || Server::layers()->append(ServerWrapper::class, DI::object(TracedIncoming::class));
+            || Server::layers()->append(ServerWrapper::class, DI::object(TracedIncoming::class));
         }, static function () {
             Server::layers()->remove(TracedOutgoing::class);
             Server::layers()->remove(TracedIncoming::class);
