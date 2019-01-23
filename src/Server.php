@@ -14,13 +14,14 @@ use Carno\Net\Contracts\Conn;
 use Carno\Net\Events\HTTP;
 use Carno\Net\Events\Worker;
 use Carno\RPC\Server as RServer;
+use Carno\Serving\Chips\Boots;
 use Carno\Serving\Chips\Events;
 use Carno\Serving\Chips\Plugins;
 use Carno\Serving\Chips\Wants;
 
 class Server
 {
-    use Events, Wants, Plugins;
+    use Events, Boots, Wants, Plugins;
 
     /**
      * @var string

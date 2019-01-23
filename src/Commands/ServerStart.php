@@ -78,6 +78,7 @@ class ServerStart extends Based
             $app->name(),
             new Address($app->input()->getOption(Options::LISTEN))
         ))
+            ->bootstrap($this->bootstrap())
             ->plugins(
                 new Registry(new Address($app->input()->getOption(self::OPT_ADVERTISE)), $workers),
                 new LiveReloading,

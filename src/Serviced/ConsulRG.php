@@ -66,7 +66,7 @@ class ConsulRG implements Registry
                 ->servicing($advertise, $server, $this->dTagging->getTags())
             ;
 
-            ($ready = $service->ready())->then(function () use ($service) {
+            ($ready = $service->ready())->then(static function () use ($service) {
                 logger('hrpc')->info('Service has been registered', ['node' => $service->endpoint()]);
             });
 
@@ -84,12 +84,8 @@ class ConsulRG implements Registry
         $waits = [];
 
         foreach ($this->sRegistered as $service) {
-            ($respond = $service->deregister())->then(static function (Result $result) use ($service) {
-                if ($result->success()) {
-                    logger('hrpc')->info('Service has been deregister', ['node' => $service->endpoint()]);
-                } else {
-                    logger('hrpc')->info('Service deregister failed', ['node' => $service->endpoint()]);
-                }
+            ($respond = $service->deregister())->then(static function () use ($service) {
+                logger('hrpc')->info('Service has been deregistered', ['node' => $service->endpoint()]);
             });
             $waits[] = $respond;
         }
