@@ -10,7 +10,6 @@ namespace Carno\HRPC\Serviced;
 
 use Carno\Consul\Registry as CRegistry;
 use Carno\Consul\Types\Agent;
-use Carno\Consul\Types\Result;
 use Carno\Consul\Types\Service;
 use Carno\Consul\Types\Tagging;
 use Carno\Net\Address;

@@ -31,17 +31,15 @@ class Dispatcher extends Component implements Bootable
     public function starting(Application $app) : void
     {
         /**
-         * @var Scanner $scanner
          * @var RDispatcher $dispatcher
          */
 
-        $scanner = DI::get(Scanner::class);
         $dispatcher = DI::set(RDispatcher::class, DI::object(RDispatcher::class));
 
         $started = $app->starting()->done();
         $shutdown = Promise::deferred();
 
-        $app->starting()->add(static function () use ($dispatcher, $scanner, $started, $shutdown) {
+        $app->starting()->add(static function () use ($dispatcher, $started, $shutdown) {
             $dispatcher->preparing($started, $shutdown)->catch(function (Throwable $e) {
                 logger('hrpc')->error(
                     'Service startup failed when initialize',
