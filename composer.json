@@ -15,7 +15,7 @@
     "carno-php/net": "^1.0"
   },
   "suggest": {
-    "carno-php/hrpc-accel": "Accelerate by TCP"
+    "carno-php/hrpca": "Network accelerated by TCP"
   },
   "autoload": {
     "psr-4": {
