@@ -17,7 +17,7 @@ class ServerUnavailable implements Layered
 {
     public function inbound($message, Context $ctx)
     {
-        throw new ServerUnavailableException;
+        throw new ServerUnavailableException();
     }
 
     public function outbound($message, Context $ctx)

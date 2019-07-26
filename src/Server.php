@@ -21,7 +21,10 @@ use Carno\Serving\Chips\Wants;
 
 class Server
 {
-    use Events, Boots, Wants, Plugins;
+    use Events;
+    use Boots;
+    use Wants;
+    use Plugins;
 
     /**
      * @var string
@@ -43,7 +46,7 @@ class Server
         $this->name = $name;
         $this->listen = $listen;
 
-        $this->events()->attach(Worker::STARTED, function (Conn $ctx) {
+        $this->events()->attach(Worker::STARTED, static function (Conn $ctx) {
             $ctx->events()->attach(HTTP::REQUESTING, RServer::layers()->handler());
         });
     }

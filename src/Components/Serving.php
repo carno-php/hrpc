@@ -43,20 +43,20 @@ class Serving extends Component implements Bootable
             DI::object(ServerReplier::class),
             DI::object(ServerWrapper::class),
             DI::object(RequestLogger::class),
-            DI::object(ServiceInvoker::class, DI::get(Dispatcher::class), $options = new Options)
+            DI::object(ServiceInvoker::class, DI::get(Dispatcher::class), $options = new Options())
         );
 
         // initial mark server "unavailable"
         Server::layers()->append(ServerWrapper::class, DI::object(ServerUnavailable::class));
 
-        $app->starting()->add(static function () use ($options) {
+        $app->starting()->add(static function () use ($app, $options) {
             // add traffic monitor layer
             DI::has(Daemon::class) && Server::layers()->append(
                 ServerWrapper::class,
                 DI::object(TrafficMonitor::class)
             );
             // configurable options link
-            config()->bind($options, ['rpc.serv.opts' => ['tt.exec' => 'ttExec']]);
+            $app->conf()->bind($options, ['rpc.serv.opts' => ['tt.exec' => 'ttExec']]);
         });
 
         $app->starting()->done()->then(static function () {

@@ -29,7 +29,10 @@ use Symfony\Component\Console\Input\InputOption;
 class ServerStart extends Based
 {
     use HWIGet;
-    use Opt\Common, Opt\Metrics, Opt\Discovery, Opt\Listener;
+    use Opt\Common;
+    use Opt\Metrics;
+    use Opt\Discovery;
+    use Opt\Listener;
 
     // service broadcast ip
     private const OPT_ADVERTISE = 'broadcast-ip';
@@ -81,9 +84,9 @@ class ServerStart extends Based
             ->bootstrap($this->bootstrap())
             ->plugins(
                 new Registry(new Address($app->input()->getOption(self::OPT_ADVERTISE)), $workers),
-                new LiveReloading,
-                new ServerMonitor,
-                new MetricsExporter
+                new LiveReloading(),
+                new ServerMonitor(),
+                new MetricsExporter()
             )
             ->wants($app->starting(), $app->stopping())
             ->run($workers)

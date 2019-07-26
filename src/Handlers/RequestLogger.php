@@ -76,7 +76,7 @@ class RequestLogger implements Layered
 
         if ($e) {
             $meta = array_merge($meta, [
-                'err' => get_class($e).'::'.$e->getMessage(),
+                'err' => get_class($e) . '::' . $e->getMessage(),
                 'file' => $e->getFile(),
                 'line' => $e->getLine(),
             ]);

@@ -19,7 +19,9 @@ use Throwable;
 
 class TracedOutgoing implements Layered
 {
-    use SpansCreator, SpansExporter, ErrorsClassify;
+    use SpansCreator;
+    use SpansExporter;
+    use ErrorsClassify;
 
     /**
      * @param mixed $message
